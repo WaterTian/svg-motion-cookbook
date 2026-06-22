@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+
+# Claude Code per-user overrides (project-shared settings.json is OK; the .local one isn't)
+.claude/settings.local.json
+
+# Editor cruft
+*.swp
+*.swo
+.idea/
+
+# Node (in case any tooling lands later)
+node_modules/
+
+# Playwright auth state / persistent profiles — never commit, contains cookies
+/profile/
+/.playwright/
+
+# Local snapshots & scratch
+/tmp/
+*.local.png

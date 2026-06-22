@@ -1,57 +1,73 @@
-# svg-motion-cookbook
+<p align="right"><strong>English</strong> · <a href="README.zh.md">中文</a></p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/WaterTian/svg-motion-cookbook/main/examples/hero.svg" alt="svg-motion-cookbook" width="900"/>
+</p>
 
 > Recipes for hand-authoring small **animated SVGs that play on GitHub** — README headers, status badges, walkthrough diagrams. Pure SMIL, no JS, no CSS, no toolchain.
 
-Born out of building [cc-hud](https://github.com/WaterTian/cc-hud)'s animated README header. The same patterns reuse cleanly across other projects, so this cookbook collects them in one place.
+> **About the banner above.** It's not a screenshot — it's a single SVG file under 5KB that composes all 8 cookbook patterns. The wordmark wipes in with `clipPath` (pattern 3), shimmers through palette neighbors (6), the cursor blinks discretely (7); the eight bars stagger (2) through a loop-with-hold cycle (1); the right-hand label rotates via opacity overlay (4); `plays` pulses on a `tspan` (5); the green dot heartbeats once per 6s cycle (8). Read [`examples/hero.svg`](examples/hero.svg) — the entire show is plain SMIL.
+
+---
+
+## Try it in 30 seconds
+
+```bash
+git clone https://github.com/WaterTian/svg-motion-cookbook
+open svg-motion-cookbook/examples/01-loop-bar.svg
+```
+
+Or just hit any link in the table below — every example renders directly on GitHub.
 
 ## Why these constraints
 
-GitHub renders `<img src="*.svg">` in README and sanitizes the SVG. That means:
+GitHub renders `<img src="*.svg">` in READMEs and sanitizes the SVG. That means:
 
 - ❌ `<script>` — stripped
 - ❌ CSS `@keyframes` / external stylesheets — stripped
 - ❌ Web Animations API — needs JS
 - ✅ **SMIL** (`<animate>`, `<animateTransform>`, `<set>`) — preserved and plays in the browser
 
-So if you want animation to actually move on a GitHub-hosted README — SMIL is the path. This cookbook focuses on SMIL exclusively.
-
-## Quick tour
-
-```bash
-# View any example directly in your browser
-open examples/01-loop-bar.svg
-
-# Render a single frame at t=2000ms (for thumbnails / fallback PNGs)
-./scripts/render.sh examples/01-loop-bar.svg 2000 /tmp/out.png
-
-# Snapshot multiple frames across one cycle for visual verification
-./scripts/render-frames.sh examples/compound-statusline.svg
-```
-
-Both scripts shell out to **headless Chrome** with `--virtual-time-budget` — the key flag that lets you advance the SMIL clock to an exact moment and capture that frame.
+If you want animation to actually move on a GitHub-hosted README, SMIL is the path. This cookbook focuses on SMIL exclusively.
 
 ## What's inside
 
-### Patterns ([patterns.md](patterns.md))
+### 📘 [`patterns.md`](patterns.md) — eight reusable recipes
 
-Eight reusable recipes. Each entry lists when to use it, the minimal code, and links to a runnable example.
+Each entry has: when to use it, the minimal code, and a runnable example.
 
-| # | Pattern | Minimal example |
+| # | Pattern | Example |
 |---|---|---|
-| 1 | Loop with hold phase                    | [01-loop-bar.svg](examples/01-loop-bar.svg) |
-| 2 | Staggered begin (multi-element rhythm)  | [02-staggered-bars.svg](examples/02-staggered-bars.svg) |
+| 1 | Loop with hold phase                     | [01-loop-bar.svg](examples/01-loop-bar.svg) |
+| 2 | Staggered begin (multi-element rhythm)   | [02-staggered-bars.svg](examples/02-staggered-bars.svg) |
 | 3 | Clip-path reveal (ASCII-block animation) | [03-clip-reveal-text.svg](examples/03-clip-reveal-text.svg) |
-| 4 | Text-content swap via opacity overlay   | [04-text-swap.svg](examples/04-text-swap.svg) |
-| 5 | tspan pulse with `fill-opacity`         | [05-pulse-glyph.svg](examples/05-pulse-glyph.svg) |
-| 6 | Color shimmer (`fill` interpolation)    | [06-color-shimmer.svg](examples/06-color-shimmer.svg) |
-| 7 | Discrete blink (terminal cursor feel)   | [07-cursor-blink.svg](examples/07-cursor-blink.svg) |
-| 8 | Once-per-cycle heartbeat                | [08-heartbeat.svg](examples/08-heartbeat.svg) |
-| ★ | Composition of all of the above         | [compound-statusline.svg](examples/compound-statusline.svg) |
+| 4 | Text-content swap via opacity overlay    | [04-text-swap.svg](examples/04-text-swap.svg) |
+| 5 | tspan pulse with `fill-opacity`          | [05-pulse-glyph.svg](examples/05-pulse-glyph.svg) |
+| 6 | Color shimmer (`fill` interpolation)     | [06-color-shimmer.svg](examples/06-color-shimmer.svg) |
+| 7 | Discrete blink (terminal cursor feel)    | [07-cursor-blink.svg](examples/07-cursor-blink.svg) |
+| 8 | Once-per-cycle heartbeat                 | [08-heartbeat.svg](examples/08-heartbeat.svg) |
+| ★ | All eight composed                       | [compound-statusline.svg](examples/compound-statusline.svg) |
+| ★ | All eight composed (banner form)         | [hero.svg](examples/hero.svg) |
 
-### Other docs
+### ⚠️ [`gotchas.md`](gotchas.md) — pitfalls that cost me 15+ minutes each
 
-- **[gotchas.md](gotchas.md)** — pitfalls that cost me time: whitespace collapse, `tspan` `opacity` flakiness, `calcMode` semantics, monospace alignment in SVG, etc.
-- **[github-readme.md](github-readme.md)** — how to embed in a README: `<picture>` for light/dark, raw URL requirements, PNG fallback strategy.
+Whitespace collapse · `tspan` opacity flakiness · `calcMode` semantics · `keyTimes` monotonicity · `<animate>` element placement · monospace alignment · sanitizer rules · file-size thresholds.
+
+### 📦 [`github-readme.md`](github-readme.md) — embedding guide
+
+`raw.githubusercontent.com` URL requirement · `<picture>` for light/dark themes · PNG fallback strategy · cache-busting query strings · size limits at the image proxy.
+
+## Render & snapshot
+
+```bash
+# Render a single frame at t=2000ms (for thumbnails / PNG fallbacks)
+./scripts/render.sh examples/01-loop-bar.svg 2000 /tmp/out.png
+
+# Snapshot multiple frames across one cycle (for visual verification)
+./scripts/render-frames.sh examples/compound-statusline.svg
+```
+
+Both scripts shell out to **headless Chrome with `--virtual-time-budget`** — the flag that advances the SMIL clock to an exact moment and captures that frame. The same technique was used to design and verify [`examples/hero.svg`](examples/hero.svg).
 
 ## Compatibility
 
@@ -63,6 +79,14 @@ Eight reusable recipes. Each entry lists when to use it, the minimal code, and l
 | VS Code Markdown preview | ✅ | Plays via embedded Webview |
 | RSS readers / static-site previewers | ⚠️ | Many fall back to static first frame; ship a PNG inside `<picture>` |
 | Image proxies that re-encode (rare) | ❌ | Some converters flatten SVG → PNG and lose animation |
+
+## Showcase
+
+Projects shipping animated SVGs built with these patterns:
+
+- **[cc-hud](https://github.com/WaterTian/cc-hud)** — a terminal-style statusline for Claude Code. Its animated README header composes the loop+hold, staggered, clip-reveal, text-swap, color-shimmer, and cursor-blink patterns at once.
+
+If you ship one of these in your own project, drop a link — I'd love to add it here.
 
 ## License
 

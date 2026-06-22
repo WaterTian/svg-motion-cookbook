@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 280"
+     xml:space="preserve"
+     font-family="ui-monospace, Menlo, 'SF Mono', monospace">
+  <title>svg-motion-cookbook — animated banner</title>
+  <desc>
+    Animated banner composing all 8 cookbook patterns:
+    loop+hold (bars), staggered begin (bars), clip-path reveal (wordmark wipe),
+    text-content swap (rotating descriptor), tspan pulse ("plays" in tagline),
+    color shimmer (wordmark fill), discrete blink (cursor), once-per-cycle heartbeat.
+  </desc>
+
+  <defs>
+    <linearGradient id="cardBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1e1e2e"/>
+      <stop offset="1" stop-color="#11111b"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-5%" y="-10%" width="110%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+
+    <!-- Pattern 3: clip-path reveal wipes the wordmark in & out each cycle. -->
+    <clipPath id="wmReveal">
+      <rect x="32" y="68" width="0" height="76">
+        <animate attributeName="width"
+                 values="0;560;560;0"
+                 keyTimes="0;0.14;0.86;1"
+                 dur="8s" repeatCount="indefinite"/>
+      </rect>
+    </clipPath>
+  </defs>
+
+  <!-- Card chrome -->
+  <g filter="url(#cardShadow)">
+    <rect x="10" y="10" width="860" height="260" rx="14" fill="url(#cardBg)" stroke="#313244"/>
+  </g>
+
+  <!-- Top bar: traffic lights · centered subtitle · live heartbeat -->
+  <circle cx="34" cy="34" r="5" fill="#f38ba8"/>
+  <circle cx="50" cy="34" r="5" fill="#f9e2af"/>
+  <circle cx="66" cy="34" r="5" fill="#a6e3a1"/>
+
+  <text x="440" y="38" font-size="11" fill="#7f849c" text-anchor="middle">
+    a cookbook for animated svg · pure SMIL · no toolchain
+  </text>
+
+  <!-- Pattern 8: once-per-cycle heartbeat -->
+  <text x="822" y="38" font-size="11" fill="#585b70" text-anchor="end">live</text>
+  <circle cx="836" cy="34" r="4" fill="#a6e3a1" opacity="0">
+    <animate attributeName="opacity"
+             values="0;0;1;0.6;0"
+             keyTimes="0;0.92;0.95;0.98;1"
+             dur="6s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Ghost underlayer so the wipe-out doesn't leave a void. -->
+  <text x="40" y="124" font-size="46" font-weight="700" fill="#313244" letter-spacing="-1">svg-motion-cookbook</text>
+
+  <!-- Pattern 6 (color shimmer) + Pattern 3 (clip reveal) on the wordmark. -->
+  <text x="40" y="124" font-size="46" font-weight="700" fill="#cba6f7" letter-spacing="-1" clip-path="url(#wmReveal)">
+    svg-motion-cookbook
+    <animate attributeName="fill"
+             values="#cba6f7;#e8d4ff;#94e2d5;#cba6f7"
+             dur="8s" repeatCount="indefinite"/>
+  </text>
+
+  <!-- Pattern 7: discrete cursor blink trailing the wordmark. -->
+  <text x="560" y="124" font-size="46" font-weight="700" fill="#cdd6f4">▎<animate attributeName="opacity"
+             calcMode="discrete"
+             values="1;0" keyTimes="0;0.5"
+             dur="1.06s" repeatCount="indefinite"/></text>
+
+  <!-- Pattern 1 + Pattern 2: eight staggered recipe bars. -->
+  <g transform="translate(40 160)">
+    <rect x="0"   y="34" width="36" height="6" rx="3" fill="#a6e3a1">
+      <animate attributeName="height" values="6;40;40;6" keyTimes="0;0.22;0.85;1" begin="0s"   dur="6s" repeatCount="indefinite"/>
+      <animate attributeName="y"      values="34;0;0;34" keyTimes="0;0.22;0.85;1" begin="0s"   dur="6s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="44"  y="34" width="36" height="6" rx="3" fill="#94e2d5">
+      <animate attributeName="height" values="6;40;40;6" keyTimes="0;0.22;0.85;1" begin="0.3s" dur="6s" repeatCount="indefinite"/>
+      <animate attributeName="y"      values="34;0;0;34" keyTimes="0;0.22;0.85;1" begin="0.3s" dur="6s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="88"  y="34" width="36" height="6" rx="3" fill="#89b4fa">
+      <animate attributeName="height" values="6;40;40;6" keyTimes="0;0.22;0.85;1" begin="0.6s" dur="6s" repeatCount="indefinite"/>
+      <animate attributeName="y"      values="34;0;0;34" keyTimes="0;0.22;0.85;1" begin="0.6s" dur="6s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="132" y="34" width="36" height="6" rx="3" fill="#cba6f7">
+      <animate attributeName="height" values="6;40;40;6" keyTimes="0;0.22;0.85;1" begin="0.9s" dur="6s" repeatCount="indefinite"/>
+      <animate attributeName="y"      values="34;0;0;34" keyTimes="0;0.22;0.85;1" begin="0.9s" dur="6s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="176" y="34" width="36" height="6" rx="3" fill="#f9e2af">
+      <animate attributeName="height" values="6;40;40;6" keyTimes="0;0.22;0.85;1" begin="1.2s" dur="6s" repeatCount="indefinite"/>
+      <animate attributeName="y"      values="34;0;0;34" keyTimes="0;0.22;0.85;1" begin="1.2s" dur="6s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="220" y="34" width="36" height="6" rx="3" fill="#f5c2e7">
+      <animate attributeName="height" values="6;40;40;6" keyTimes="0;0.22;0.85;1" begin="1.5s" dur="6s" repeatCount="indefinite"/>
+      <animate attributeName="y"      values="34;0;0;34" keyTimes="0;0.22;0.85;1" begin="1.5s" dur="6s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="264" y="34" width="36" height="6" rx="3" fill="#fab387">
+      <animate attributeName="height" values="6;40;40;6" keyTimes="0;0.22;0.85;1" begin="1.8s" dur="6s" repeatCount="indefinite"/>
+      <animate attributeName="y"      values="34;0;0;34" keyTimes="0;0.22;0.85;1" begin="1.8s" dur="6s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="308" y="34" width="36" height="6" rx="3" fill="#f38ba8">
+      <animate attributeName="height" values="6;40;40;6" keyTimes="0;0.22;0.85;1" begin="2.1s" dur="6s" repeatCount="indefinite"/>
+      <animate attributeName="y"      values="34;0;0;34" keyTimes="0;0.22;0.85;1" begin="2.1s" dur="6s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+
+  <!-- Pattern 4: text-content swap rotating "8 patterns" → "0 deps" → "github-ready". -->
+  <g transform="translate(424 184)" font-size="22" font-weight="700">
+    <text fill="#a6e3a1">8 patterns<animate attributeName="opacity" calcMode="discrete"
+               values="1;0;0;1" keyTimes="0;0.33;0.67;1"
+               dur="4.5s" repeatCount="indefinite"/></text>
+    <text fill="#94e2d5" opacity="0">0 deps<animate attributeName="opacity" calcMode="discrete"
+               values="0;1;0;0" keyTimes="0;0.33;0.67;1"
+               dur="4.5s" repeatCount="indefinite"/></text>
+    <text fill="#cba6f7" opacity="0">github-ready<animate attributeName="opacity" calcMode="discrete"
+               values="0;0;1;0" keyTimes="0;0.33;0.67;1"
+               dur="4.5s" repeatCount="indefinite"/></text>
+  </g>
+  <text x="424" y="208" font-size="13" fill="#6c7086">no js · no css · no toolchain</text>
+
+  <!-- Footer divider + tagline with Pattern 5 tspan pulse on "plays". -->
+  <line x1="40" y1="232" x2="830" y2="232" stroke="#313244" stroke-dasharray="3 3"/>
+  <text x="40" y="252" font-size="13" fill="#6c7086">recipes for animated svg that <tspan fill="#94e2d5">plays<animate attributeName="fill-opacity"
+             values="1;0.4;1" dur="2.4s" repeatCount="indefinite"/></tspan> on github · README headers · status badges · diagrams</text>
+
+</svg>

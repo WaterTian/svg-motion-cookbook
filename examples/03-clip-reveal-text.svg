@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 140" font-family="ui-monospace, Menlo, monospace">
+  <title>Pattern 3 — Clip-path reveal</title>
+  <desc>A row of Unicode block characters revealed left-to-right by animating a clipPath rect's width.</desc>
+
+  <rect width="360" height="140" fill="#1e1e2e" rx="8"/>
+  <text x="20" y="30" font-size="12" fill="#7f849c">03 — clip-path reveal</text>
+
+  <defs>
+    <clipPath id="reveal">
+      <rect x="20" y="55" width="0" height="30">
+        <animate attributeName="width"
+                 values="0;220;220;0"
+                 keyTimes="0;0.22;0.85;1"
+                 dur="6s" repeatCount="indefinite"/>
+      </rect>
+    </clipPath>
+  </defs>
+
+  <!-- Track: always visible behind the foreground. -->
+  <text x="20" y="78" fill="#45475a" font-size="22">░░░░░░░░░░</text>
+
+  <!-- Foreground: the chunky blocks, revealed via the animated clip. -->
+  <text x="20" y="78" fill="#a6e3a1" font-size="22" clip-path="url(#reveal)">██████████</text>
+
+  <text x="20" y="120" font-size="10" fill="#585b70">preserves the ASCII-block aesthetic; animation is on the clip, not the text</text>
+</svg>

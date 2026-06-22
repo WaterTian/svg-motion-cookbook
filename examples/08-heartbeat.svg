@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 120" font-family="ui-monospace, Menlo, monospace">
+  <title>Pattern 8 — Once-per-cycle heartbeat</title>
+  <desc>A small dot stays invisible most of the time, then flashes briefly at end of each cycle — a quiet "alive" signal.</desc>
+
+  <rect width="360" height="120" fill="#1e1e2e" rx="8"/>
+  <text x="20" y="30" font-size="12" fill="#7f849c">08 — heartbeat (silent → flash)</text>
+
+  <text x="20" y="70" font-size="16" fill="#cdd6f4">live</text>
+
+  <circle cx="80" cy="64" r="5" fill="#a6e3a1" opacity="0">
+    <animate attributeName="opacity"
+             values="0;0;1;0.6;0"
+             keyTimes="0;0.92;0.95;0.98;1"
+             dur="6s" repeatCount="indefinite"/>
+  </circle>
+
+  <text x="20" y="100" font-size="10" fill="#585b70">silent 92% · peak 3% · decay 3% · gone 2% · loop</text>
+</svg>

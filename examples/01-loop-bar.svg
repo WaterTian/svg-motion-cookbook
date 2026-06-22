@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 120" font-family="ui-monospace, Menlo, monospace">
+  <title>Pattern 1 — Loop with hold phase</title>
+  <desc>A single bar that fills, holds at its target, then empties, then repeats — forever.</desc>
+
+  <rect width="360" height="120" fill="#1e1e2e" rx="8"/>
+
+  <text x="20" y="30" font-size="12" fill="#7f849c">01 — loop with hold phase</text>
+
+  <!-- Track -->
+  <rect x="20" y="60" width="320" height="14" fill="#313244" rx="2"/>
+
+  <!-- Animated fill: 0 → 320 → hold at 320 → back to 0 over 6s, looped. -->
+  <rect x="20" y="60" width="0" height="14" fill="#a6e3a1" rx="2">
+    <animate attributeName="width"
+             values="0;320;320;0"
+             keyTimes="0;0.22;0.85;1"
+             dur="6s"
+             repeatCount="indefinite"/>
+  </rect>
+
+  <text x="20" y="100" font-size="10" fill="#585b70">fill 22% · hold 63% · empty 15% · 6s cycle</text>
+</svg>

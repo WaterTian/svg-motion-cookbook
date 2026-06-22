@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 200" font-family="ui-monospace, Menlo, 'SF Mono', monospace">
+  <title>Compound — terminal statusline composing all 8 cookbook patterns</title>
+  <desc>
+    Demonstrates how the eight cookbook patterns compose into a single coherent piece:
+    looping bar with clip reveal, staggered animation, tspan pulse, text swap, color shimmer,
+    cursor blink, and a heartbeat indicator — all running off independent SMIL loops.
+  </desc>
+
+  <defs>
+    <linearGradient id="titleBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#181825"/>
+      <stop offset="1" stop-color="#11111b"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-20%" width="120%" height="160%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity="0.55"/>
+    </filter>
+
+    <!-- Pattern 1+3: animated clipPath width drives the bar reveal. -->
+    <clipPath id="barClip">
+      <rect x="180" y="98" width="0" height="18">
+        <animate attributeName="width"
+                 values="0;240;240;0"
+                 keyTimes="0;0.22;0.85;1"
+                 dur="6s" repeatCount="indefinite"/>
+      </rect>
+    </clipPath>
+  </defs>
+
+  <!-- Terminal window chrome -->
+  <g filter="url(#shadow)">
+    <rect x="20" y="20" width="680" height="160" rx="12" fill="#1e1e2e" stroke="#313244"/>
+    <path d="M20 32 a12 12 0 0 1 12-12 h656 a12 12 0 0 1 12 12 v16 h-680 z" fill="url(#titleBg)"/>
+    <line x1="20" y1="48" x2="700" y2="48" stroke="#313244"/>
+    <circle cx="38" cy="34" r="5" fill="#f38ba8"/>
+    <circle cx="54" cy="34" r="5" fill="#f9e2af"/>
+    <circle cx="70" cy="34" r="5" fill="#a6e3a1"/>
+
+    <!-- Pattern 6: brand color shimmers between two palette neighbors. -->
+    <text x="360" y="38" font-size="11" fill="#7f849c" text-anchor="middle" font-weight="500">
+      <tspan fill="#cba6f7" font-weight="600">cookbook
+        <animate attributeName="fill"
+                 values="#cba6f7;#e8d4ff;#cba6f7"
+                 dur="4s" repeatCount="indefinite"/>
+      </tspan>
+      · compound demo
+    </text>
+
+    <!-- Pattern 8: heartbeat dot, briefly flashes at the end of each 6s cycle. -->
+    <circle cx="660" cy="34" r="3" fill="#a6e3a1" opacity="0">
+      <animate attributeName="opacity"
+               values="0;0;1;0.6;0"
+               keyTimes="0;0.92;0.95;0.98;1"
+               dur="6s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- Body line: model · context bar · status indicator · ticking value · cursor -->
+  <g font-size="15">
+    <!-- Model -->
+    <text x="40" y="113"><tspan fill="#6c7086">[</tspan><tspan fill="#89b4fa" font-weight="600">Model 4.7</tspan><tspan fill="#6c7086">]</tspan></text>
+
+    <!-- Pattern 3: track + clip-reveal foreground for the progress bar. -->
+    <text x="180" y="113" fill="#45475a">░░░░░░░░░░░░░░░░░░░░░░░░░</text>
+    <text x="180" y="113" fill="#a6e3a1" clip-path="url(#barClip)">█████████████████████████</text>
+
+    <!-- Static labels around the dynamic counter -->
+    <text x="440" y="113" xml:space="preserve"><tspan fill="#a6e3a1">42%</tspan> <tspan fill="#6c7086">│</tspan>
+      <tspan dx="6" fill="#94e2d5">◐
+        <!-- Pattern 5: tspan-level pulse via fill-opacity. -->
+        <animate attributeName="fill-opacity"
+                 values="1;0.4;1" dur="1.6s" repeatCount="indefinite"/>
+      </tspan>
+      <tspan dx="4" fill="#cdd6f4">live</tspan>
+      <tspan dx="6" fill="#6c7086">│</tspan>
+      <tspan dx="6" fill="#6c7086">5h:</tspan>
+    </text>
+
+    <!-- Pattern 4: text-content swap via overlapping opacity. Three values rotate in place. -->
+    <text x="608" y="113" fill="#f9e2af" opacity="1">62%
+      <animate attributeName="opacity" calcMode="discrete"
+               values="1;0;1" keyTimes="0;0.33;1" dur="3s" repeatCount="indefinite"/>
+    </text>
+    <text x="608" y="113" fill="#f9e2af" opacity="0">63%
+      <animate attributeName="opacity" calcMode="discrete"
+               values="0;1;0;1;0" keyTimes="0;0.33;0.34;0.66;0.67" dur="3s" repeatCount="indefinite"/>
+    </text>
+    <text x="608" y="113" fill="#f9e2af" opacity="0">64%
+      <animate attributeName="opacity" calcMode="discrete"
+               values="0;1" keyTimes="0;0.66" dur="3s" repeatCount="indefinite"/>
+    </text>
+
+    <!-- Pattern 7: discrete cursor blink trailing the line. -->
+    <text x="650" y="113" fill="#cdd6f4">▎
+      <animate attributeName="opacity"
+               calcMode="discrete"
+               values="1;0" keyTimes="0;0.5"
+               dur="1.06s" repeatCount="indefinite"/>
+    </text>
+  </g>
+
+  <!-- Footer caption -->
+  <g font-size="10" fill="#585b70">
+    <line x1="40" y1="146" x2="680" y2="146" stroke="#313244" stroke-dasharray="3 3"/>
+    <text x="40" y="166" xml:space="preserve">eight patterns composed · clip-reveal · staggered · pulse · swap · shimmer · blink · heartbeat · loop</text>
+  </g>
+</svg>

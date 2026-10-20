@@ -85,6 +85,7 @@ Both scripts shell out to **headless Chrome with `--virtual-time-budget`** — t
 Projects shipping animated SVGs built with these patterns:
 
 - **[cc-hud](https://github.com/WaterTian/cc-hud)** — a terminal-style statusline for Claude Code. Its animated README header composes the loop+hold, staggered, clip-reveal, text-swap, color-shimmer, and cursor-blink patterns at once.
+- **[SintBot](https://github.com/WaterTian/sintbot)** — a self-hosted daemon that puts Claude Code and Codex in your team's group chat. Its README banner, flow diagram and Slack-thread demo combine loop-with-hold timelines, staggered steps, opacity text swaps, color shimmer and a once-per-cycle heartbeat, plus a stroke draw-in for the arrows. Only color, opacity and stroke progress change, and all text is outlined to paths so the typography matches the website on every OS.
 
 If you ship one of these in your own project, drop a link — I'd love to add it here.
 

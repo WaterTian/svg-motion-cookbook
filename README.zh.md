@@ -85,6 +85,7 @@ GitHub 在 README 里渲染 `<img src="*.svg">` 时会清洗 SVG，被剥掉的�
 用上这套模式的项目：
 
 - **[cc-hud](https://github.com/WaterTian/cc-hud)** — Claude Code 的终端风格状态栏。它的动画 README 头图同时用到了带保持的循环、错峰启动、clip-reveal、文本切换、颜色变换、光标闪烁多个模式。
+- **[SintBot](https://github.com/WaterTian/sintbot)** — 把 Claude Code 和 Codex 接进团队聊天群的自托管守护进程。它的 README 横幅、流程图和 Slack 线程演示用到了带保持的循环、错峰步骤、透明度文本切换、颜色变换和每轮一次的心跳，箭头另加了描边绘制。只变颜色、透明度和描边进度，文字全部转成路径，排版在任何系统上都和官网一致。
 
 如果你在自己的项目里用上了，欢迎来一条链接，我把它加进来。
 
